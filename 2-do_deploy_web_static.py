@@ -27,27 +27,25 @@ env.user = 'ubuntu'
 
 
 def do_deploy(archive_path):
-    """Fabric script that distributes an archive to your web servers,
-    using the function do_deploy"""
-    if os.path.isfile(archive_path) is False:
-        return False
-    else:
-        file_name = archive_path[9:]
-        path_to_uncompress = "/data/web_static/releases/" + file_name[:-4]
-        path_to_store = "/tmp/" + file_name
-
+    """
+        Distribute our file into servers
+    """
+    if os.path.exists(archive_path):
+        storedfile = archive_path[9:]
+        nv = "/data/web_static/releases/" + storedfile[:-4]
+        storedfile = "/tmp/" + storedfile
         put(archive_path, "/tmp/")
-
-        run("sudo mkdir -p {}".format(path_to_uncompress))
-        run("sudo tar -xzf {} -C {}".format(path_to_store, path_to_uncompress))
-        run("sudo rm {}".format(path_to_store))
-        run("sudo mv {}/web_static/* {}".format(path_to_uncompress,
-                                                path_to_uncompress))
-        run("sudo rm -rf {}/web_static".format(path_to_uncompress))
+        run("sudo mkdir -p {}".format(nv))
+        run("sudo tar -xzf {} -C {}/".format(storedfile,
+                                             nv))
+        run("sudo rm {}".format(storedfile))
+        run("sudo mv {}/web_static/* {}".format(nv,
+                                                nv))
+        run("sudo rm -rf {}/web_static".format(nv))
         run("sudo rm -rf /data/web_static/current")
-        run("sudo ln -s {} /data/web_static/current"
-            .format(path_to_uncompress))
+        run("sudo ln -s {} /data/web_static/current".format(nv))
 
         print("New version deployed!")
-
         return True
+
+    return False
