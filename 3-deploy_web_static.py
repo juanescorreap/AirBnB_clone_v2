@@ -60,4 +60,5 @@ def deploy():
     tgz_file = do_pack()
     if tgz_file is None:
         return False
-    return do_deploy(tgz_file)
+    do_deploy_value = do_deploy(tgz_file)
+    return do_deploy_value
