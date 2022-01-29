@@ -28,9 +28,10 @@ def display_c(text):
 def display_python(text="is cool"):
     return "Python {}".format(text.replace("_", " "))
 
+
 @app.route('/number/<int:n>',)
 def integer(n):
-	return "{} is a number".format(n)
+    return "{} is a number".format(n)
 
 
 if __name__ == '__main__':
