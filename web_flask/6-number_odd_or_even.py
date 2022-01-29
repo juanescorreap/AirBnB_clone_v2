@@ -39,14 +39,15 @@ def integer(n):
 def index(n):
     return render_template('5-number.html', n=n)
 
-@app.route('/number_odd_or_even/<n>', strict_slashes=False)
+
+@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def odd_or_even(n):
-	if n % 2 == 0:
-		parity = "even"
-	else:
-		parity = "odd"
-	display = "Number: {} is {}".format(n, parity)
-	return render_template('6-number_odd_or_even.html', display=display)
+    if n % 2 == 0:
+        parity = "even"
+    else:
+        parity = "odd"
+    display = "Number: {} is {}".format(n, parity)
+    return render_template('6-number_odd_or_even.html', display=display)
 
 
 if __name__ == '__main__':
