@@ -11,7 +11,7 @@
 		{% for i in display|sort(attribute='name') %}
 		<LI>{{i.id|e}}: <B>{{i.name|e}}</B>
 			<UL>
-				{% for j in state.cities|sort(attribute='name') %}
+				{% for j in display.cities|sort(attribute='name') %}
 				<LI>{{j.id|e}}: <B>{{j.name|e}}</B></LI>
 				{% endfor %}
 			</UL>
