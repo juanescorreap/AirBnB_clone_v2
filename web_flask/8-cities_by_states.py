@@ -1,26 +1,22 @@
 #!/usr/bin/python3
-"""
- script that starts a Flask web application
-"""
-from models import storage
-from flask import Flask, render_template
-from models.state import State
+"""init flask"""
 
+from models import storage
+from models.state import State
+from flask import Flask
+from flask import render_template
 app = Flask(__name__)
 
 
 @app.route('/cities_by_states', strict_slashes=False)
-def display_cities():
-    """ Fetches data from the storage engine"""
+def cities():
     return render_template('8-cities_by_states.html',
-                           display=storage.all(State).values())
+                           states=storage.all(State).values())
 
 
 @app.teardown_appcontext
-def close_alchemy(self):
-    """Closes the current SQLAlchemy Session"""
+def teardown(self):
     storage.close()
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0')
