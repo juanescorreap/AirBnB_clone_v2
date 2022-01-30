@@ -17,7 +17,7 @@ def display_states():
 
 
 @app.teardown_appcontext
-def close_alchemy():
+def close_alchemy(self):
     """Closes the current SQLAlchemy Session"""
     storage.close()
 
