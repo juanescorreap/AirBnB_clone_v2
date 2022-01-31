@@ -14,7 +14,7 @@ def states_and_city(id=None):
     """Fetches data from the storage engine"""
     states_list = storage.all(State)
     if id:
-        key = 'State.{}'.format(id)
+        key = "State." + id
         if key in states_list :
             state = states_list [key]
         else:
