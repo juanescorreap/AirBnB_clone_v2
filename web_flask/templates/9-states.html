@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<HTML lang="en">
+<html lang="en">
 
-<HEAD>
-	<TITLE>HBNB</TITLE>
-</HEAD>
+<head>
+	<title>HBNB</title>
+</head>
 
-<BODY>
-	{% if state is none %}
-	<H1>Not found!</H1>
+<body>
+	{% elif states is none %}
+	<h1>Not found!</h1>
 	{% else %}
-	<H1>State: {{states.name|e}}</H1>
-	<H3>Cities:</H3>
-	<UL>
+	<h1>State: {{ states.name }}</h1>
+	<h3>Cities:</h3>
+	<ul>
 		{% for city in states.cities|sort(attribute='name') %}
-		<LI>{{city.id|e}}: <B>{{city.name|e}}</B></LI>
+		<li>{{ city.id|e }}: <b>{{ city.name|e }}</b></li>
 		{% endfor %}
-	</UL>
-
+	</ul>
 	{% endif %}
-</BODY>
+</body>
 
-</HTML>
+</html>
