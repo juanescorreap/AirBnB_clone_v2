@@ -16,15 +16,16 @@ def states_and_city(id=None):
     states_list = storage.all(State)
     if os.getenv('HBNB_TYPE_STORAGE') != 'db':
         return render_template('9-states.html', states=State.cities())
-    if id:
-        key = "State." + id
-        if key in states_list:
-            state = states_list[key]
-        else:
-            state = None
     else:
-        state = storage.all(State).values()
-    return render_template('9-states.html', states=state, id=id)
+        if id:
+            key = "State." + id
+            if key in states_list:
+                state = states_list[key]
+            else:
+                state = None
+        else:
+            state = storage.all(State).values()
+        return render_template('9-states.html', states=state, id=id)
 
 
 @app.teardown_appcontext
