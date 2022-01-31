@@ -15,7 +15,7 @@ def states_and_city(id=None):
     """Fetches data from the storage engine"""
     states_list = storage.all(State)
     if os.getenv('HBNB_TYPE_STORAGE') != 'db':
-        return render_template('9-states.html', ls_states=State.cities())
+        return render_template('9-states.html', states=State.cities())
     if id:
         key = "State." + id
         if key in states_list:
