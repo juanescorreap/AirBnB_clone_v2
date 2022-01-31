@@ -5,7 +5,6 @@
 from models import storage
 from flask import Flask, render_template
 from models.state import State
-import os
 app = Flask(__name__)
 
 
@@ -13,16 +12,16 @@ app = Flask(__name__)
 @app.route('/states/<id>', strict_slashes=False)
 def states_and_city(id=None):
     """Fetches data from the storage engine"""
-    states = storage.all(State)
+    states_list = storage.all(State)
     if id:
         key = 'State.{}'.format(id)
-        if key in states:
-            states = states[key]
+        if key in states_list :
+            state = states_list [key]
         else:
-            states = None
+            state = None
     else:
-        states = storage.all(State).values()
-    return render_template('9-states.html', states=states, id=id)
+        state = storage.all(State).values()
+    return render_template('9-states.html', states=state, id=id)
 
 
 @app.teardown_appcontext
