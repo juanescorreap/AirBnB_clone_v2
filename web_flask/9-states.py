@@ -5,7 +5,7 @@
 from models import storage
 from flask import Flask, render_template
 from models.state import State
-
+import os
 app = Flask(__name__)
 
 
@@ -14,6 +14,8 @@ app = Flask(__name__)
 def states_and_city(id=None):
     """Fetches data from the storage engine"""
     states_list = storage.all(State)
+    if os.getenv('HBNB_TYPE_STORAGE') != 'db':
+        return render_template('9-states.html', ls_states=State.cities())
     if id:
         key = "State." + id
         if key in states_list:
