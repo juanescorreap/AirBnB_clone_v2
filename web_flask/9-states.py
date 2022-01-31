@@ -15,8 +15,8 @@ def states_and_city(id=None):
     states_list = storage.all(State)
     if id:
         key = "State." + id
-        if key in states_list :
-            state = states_list [key]
+        if key in states_list:
+            state = states_list[key]
         else:
             state = None
     else:
