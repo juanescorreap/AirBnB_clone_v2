@@ -10,21 +10,18 @@ app = Flask(__name__)
 
 
 @app.routes('/states', strict_slashes=False)
-def states_only():
-    """Fetches data from the storage engine"""
-    return render_template('9-states.html',
-                           states=storage.all(State).values())
-
-
 @app.route('/states/<id>', strict_slashes=False)
-def state_and_city(id):
+def states_and_city(id=None):
     states_list = storage.all(State)
-    key = "State." + id
-    if key in states_list:
-        state = states_list[key]
+    if id is not None:
+        key = "State." + id
+        if key in states_list:
+            state = states_list[key]
+        else:
+            state = None
     else:
-        state = None
-    return render_template('9-states.html', states=state)
+        state = storage.all(State).values()
+    return render_template('9-states.html', states=state, id=id)
 
 
 @app.teardown_appcontext
