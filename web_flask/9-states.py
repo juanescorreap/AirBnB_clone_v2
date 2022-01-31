@@ -9,24 +9,20 @@ import os
 app = Flask(__name__)
 
 
-@app.routes('/states', strict_slashes=False)
+@app.route('/states', strict_slashes=False)
 @app.route('/states/<id>', strict_slashes=False)
 def states_and_city(id=None):
     """Fetches data from the storage engine"""
-    states_list = storage.all(State)
-    if os.getenv('HBNB_TYPE_STORAGE') != 'db':
-        return render_template('9-states.html', states=State.cities())
-    else:
-        if id:
-            key = "State." + id
-            if key in states_list:
-                state = states_list[key]
-            else:
-                state = None
+    states = storage.all(State)
+    if id:
+        key = 'State.{}'.format(id)
+        if key in states:
+            states = states[key]
         else:
-            state = storage.all(State).values()
-        return render_template('9-states.html', states=state, id=id)
-
+            states = None
+    else:
+        states = storage.all(State).values()
+    return render_template('9-states.html', states=states, id=id)
 
 @app.teardown_appcontext
 def close_alchemy(self):
